@@ -19,31 +19,31 @@ import matplotlib.pyplot as plt
 
 
 
-def process_data(df):
+def process_data(X):
     #clean data
-    y = df.pop("TARGET")
-    df['var3'].replace("-999999", -1, inplace=True)
+    y = X.pop("TARGET")
+    X['var3'].replace("-999999", -1, inplace=True)
     #remove constant feature
     trimmer = Winsorizer(capping_method='quantiles', tail='both', fold=0.005)
-    df = trimmer.fit_transform(df)
-    undersampler = RandomUnderSampler(sampling_strategy=0.2, random_state=1234)
-    df, Y = undersampler.fit_resample(df, y)
+    X = trimmer.fit_transform(X)
+    undersampler = RandomUnderSampler(sampling_strategy=0.7, random_state=1234)
+    X, Y = undersampler.fit_resample(X, y)
     drop_features = DropFeatures(features_to_drop=['ID'])
-    df = drop_features.fit_transform(df)
+    X = drop_features.fit_transform(X)
     quasi_constant = DropConstantFeatures(tol=0.998)
-    df = quasi_constant.fit_transform(df)
+    X = quasi_constant.fit_transform(X)
     print(f"Quasi Features to drop {quasi_constant.features_to_drop_}")
     # Remove duplicated features¶
     duplicates = DropDuplicateFeatures()
-    df = duplicates.fit_transform(df)
+    X = duplicates.fit_transform(X)
     print(f"Duplicate feature sets {duplicates.duplicated_feature_sets_}")
     print(f"Dropping duplicate features {duplicates.features_to_drop_}")
     drop_corr = DropCorrelatedFeatures(method="pearson", threshold=0.9, missing_values="ignore")
-    df = drop_corr.fit_transform(df)
+    X = drop_corr.fit_transform(X)
     print(f"Drop correlated feature sets {drop_corr.correlated_feature_sets_}")
     print(f"Dropping correlared features {drop_corr.features_to_drop_}")
-    df['target'] = Y
-    return df
+    X['target'] = Y
+    return X
 
 
 if __name__ == '__main__':

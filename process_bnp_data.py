@@ -4,15 +4,18 @@ import pandas as pd
 from sklearn.impute import SimpleImputer
 from feature_engine.encoding import RareLabelEncoder, CountFrequencyEncoder
 from feature_engine.imputation import CategoricalImputer
+from sklearn.preprocessing import MinMaxScaler
 from feature_engine.selection import (
+    DropFeatures,
     DropConstantFeatures,
     DropDuplicateFeatures,
-    DropCorrelatedFeatures,
-    SmartCorrelatedSelection,
-    SelectByShuffling,
-    SelectBySingleFeaturePerformance,
-    RecursiveFeatureElimination,
+    DropCorrelatedFeatures
 )
+from feature_engine.outliers import OutlierTrimmer, Winsorizer
+from imblearn.under_sampling import RandomUnderSampler
+from imblearn.over_sampling import SMOTE
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 # Function to convert to hexavigesimal base
@@ -29,21 +32,40 @@ def az_to_int(az, nanVal=None):
             return az
 
 
-def clean_data(df):
-    df.dropna(subset=['target'], inplace=True)
-    df.drop(columns='ID', inplace=True)
-    df['v22'] = df['v22'].apply(az_to_int)
-    cat_cols = train.select_dtypes(include=['object']).columns.tolist()
-    con_cols = train.select_dtypes(include=['number']).columns.tolist()
+def clean_data(X):
+    X.dropna(subset=['target'], inplace=True)
+    y = X.pop('target')
+    X.drop(columns='ID', inplace=True)
+    X['v22'] = X['v22'].apply(az_to_int)
+    cat_cols = X.select_dtypes(include=['object']).columns.tolist()
+    con_cols = X.select_dtypes(include=['number']).columns.tolist()
     num_missing_imputer = SimpleImputer(strategy='median')
     cat_missing_imputer = CategoricalImputer(fill_value='__MISS__')
     rare_label_encoder = RareLabelEncoder(tol=0.01, n_categories=10, replace_with='__OTHER__')
     cat_freq_encoder = CountFrequencyEncoder(encoding_method="frequency")
-    df[con_cols] = num_missing_imputer.fit_transform(df[con_cols])
-    df[cat_cols] = cat_missing_imputer.fit_transform(df[cat_cols])
-    df[cat_cols] = rare_label_encoder.fit_transform(df[cat_cols])
-    df[cat_cols] = cat_freq_encoder.fit_transform(df[cat_cols])
-    return df
+    X[con_cols] = num_missing_imputer.fit_transform(X[con_cols])
+    X[cat_cols] = cat_missing_imputer.fit_transform(X[cat_cols])
+    X[cat_cols] = rare_label_encoder.fit_transform(X[cat_cols])
+    X[cat_cols] = cat_freq_encoder.fit_transform(X[cat_cols])
+    # more cleaning
+    trimmer = Winsorizer(capping_method='quantiles', tail='both', fold=0.005)
+    X = trimmer.fit_transform(X)
+    undersampler = RandomUnderSampler(sampling_strategy=0.7, random_state=1234)
+    X, Y = undersampler.fit_resample(X, y)
+    quasi_constant = DropConstantFeatures(tol=0.998)
+    X = quasi_constant.fit_transform(X)
+    print(f"Quasi Features to drop {quasi_constant.features_to_drop_}")
+    # Remove duplicated features¶
+    duplicates = DropDuplicateFeatures()
+    X = duplicates.fit_transform(X)
+    print(f"Duplicate feature sets {duplicates.duplicated_feature_sets_}")
+    print(f"Dropping duplicate features {duplicates.features_to_drop_}")
+    drop_corr = DropCorrelatedFeatures(method="pearson", threshold=0.95, missing_values="ignore")
+    X = drop_corr.fit_transform(X)
+    print(f"Drop correlated feature sets {drop_corr.correlated_feature_sets_}")
+    print(f"Dropping correlared features {drop_corr.features_to_drop_}")
+    X['target'] = Y
+    return X
 
 
 if __name__ == '__main__':
