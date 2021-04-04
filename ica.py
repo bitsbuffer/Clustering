@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 
 def run_ica(df):
     X = df.values
-    max_component = 84
+    max_component = 70
     mean_kurtosis = []
     for num_component in range(2, max_component + 1):
         ica = FastICA(n_components=num_component, max_iter=500, random_state=1234)

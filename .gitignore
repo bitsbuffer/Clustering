@@ -155,4 +155,10 @@ cython_debug/
 
 .idea/
 dataset/bnp/d/
+dataset/bnp/data_boruta.csv.zip
+dataset/bnp/data_cleaned.csv.zip
+dataset/bnp/data_ica.csv.zip
+dataset/bnp/data_pca.csv.zip
+dataset/bnp/data_rp.csv.zip
+
 
