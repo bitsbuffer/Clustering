@@ -1,0 +1,16 @@
+name: ml-hw3
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8.3
+  - pandas=1.0.5
+  - numpy
+  - scikit-learn=0.24.1
+  - matplotlib
+  - seaborn
+  - pip:
+      - feature-engine
+      - Boruta
+      - category-encoders
+      - imbalanced-learn

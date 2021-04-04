@@ -1,0 +1,43 @@
+Iteration 1, loss = 0.52292952
+Validation score: 0.763613
+Iteration 2, loss = 0.49810311
+Validation score: 0.763394
+Iteration 3, loss = 0.49101901
+Validation score: 0.764706
+Iteration 4, loss = 0.48515236
+Validation score: 0.762956
+Iteration 5, loss = 0.48099097
+Validation score: 0.764925
+Iteration 6, loss = 0.47775758
+Validation score: 0.766455
+Iteration 7, loss = 0.47382923
+Validation score: 0.766565
+Iteration 8, loss = 0.47057161
+Validation score: 0.762410
+Iteration 9, loss = 0.46739904
+Validation score: 0.761972
+Iteration 10, loss = 0.46399976
+Validation score: 0.759458
+Iteration 11, loss = 0.46136914
+Validation score: 0.757927
+Iteration 12, loss = 0.45895514
+Validation score: 0.758692
+Iteration 13, loss = 0.45574374
+Validation score: 0.760114
+Iteration 14, loss = 0.45389490
+Validation score: 0.757708
+Iteration 15, loss = 0.45109981
+Validation score: 0.756834
+Iteration 16, loss = 0.44937707
+Validation score: 0.758255
+Iteration 17, loss = 0.44734677
+Validation score: 0.760332
+Iteration 18, loss = 0.44572990
+Validation score: 0.758802
+Validation score did not improve more than tol=0.000100 for 10 consecutive epochs. Stopping.
+Confusion Matrix
+[[  843  4586]
+ [  704 16732]]
+F1 score is 0.8634979615007484
+Balanced Accuracy is 0.557450490937866
+ROC AUC is 0.557450490937866

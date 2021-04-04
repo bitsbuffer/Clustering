@@ -1,0 +1,83 @@
+Iteration 1, loss = 0.50968663
+Validation score: 0.768642
+Iteration 2, loss = 0.48855253
+Validation score: 0.768095
+Iteration 3, loss = 0.48459031
+Validation score: 0.771813
+Iteration 4, loss = 0.48240884
+Validation score: 0.769298
+Iteration 5, loss = 0.48082554
+Validation score: 0.770610
+Iteration 6, loss = 0.47947983
+Validation score: 0.771813
+Iteration 7, loss = 0.47851555
+Validation score: 0.771922
+Iteration 8, loss = 0.47743936
+Validation score: 0.772906
+Iteration 9, loss = 0.47667240
+Validation score: 0.773453
+Iteration 10, loss = 0.47586879
+Validation score: 0.774218
+Iteration 11, loss = 0.47562803
+Validation score: 0.774000
+Iteration 12, loss = 0.47481828
+Validation score: 0.773344
+Iteration 13, loss = 0.47430321
+Validation score: 0.772469
+Iteration 14, loss = 0.47371963
+Validation score: 0.774000
+Iteration 15, loss = 0.47336902
+Validation score: 0.773453
+Iteration 16, loss = 0.47288205
+Validation score: 0.772797
+Iteration 17, loss = 0.47202257
+Validation score: 0.773016
+Iteration 18, loss = 0.47229877
+Validation score: 0.772688
+Iteration 19, loss = 0.47135657
+Validation score: 0.773781
+Iteration 20, loss = 0.47092697
+Validation score: 0.774656
+Iteration 21, loss = 0.47059519
+Validation score: 0.771485
+Iteration 22, loss = 0.47028989
+Validation score: 0.774328
+Iteration 23, loss = 0.46987210
+Validation score: 0.773562
+Iteration 24, loss = 0.46935368
+Validation score: 0.773234
+Iteration 25, loss = 0.46903317
+Validation score: 0.775968
+Iteration 26, loss = 0.46883932
+Validation score: 0.774984
+Iteration 27, loss = 0.46823085
+Validation score: 0.776186
+Iteration 28, loss = 0.46830553
+Validation score: 0.773781
+Iteration 29, loss = 0.46773063
+Validation score: 0.775202
+Iteration 30, loss = 0.46714929
+Validation score: 0.774546
+Iteration 31, loss = 0.46699496
+Validation score: 0.774109
+Iteration 32, loss = 0.46677333
+Validation score: 0.773125
+Iteration 33, loss = 0.46674252
+Validation score: 0.775312
+Iteration 34, loss = 0.46637373
+Validation score: 0.774656
+Iteration 35, loss = 0.46602878
+Validation score: 0.775202
+Iteration 36, loss = 0.46578269
+Validation score: 0.774000
+Iteration 37, loss = 0.46553053
+Validation score: 0.775530
+Iteration 38, loss = 0.46555716
+Validation score: 0.773781
+Validation score did not improve more than tol=0.000100 for 10 consecutive epochs. Stopping.
+Confusion Matrix
+[[ 1067  4362]
+ [  683 16753]]
+F1 score is 0.8691343934009493
+Balanced Accuracy is 0.5786826435449365
+ROC AUC is 0.5786826435449364
